@@ -19,7 +19,7 @@ class AuditedEntity(Entity):
 
 
 class FullAuditedEntity(AuditedEntity):
-    is_deleted = models.BinaryField(
+    is_deleted = models.BooleanField(
         default=False
     )
     deleted_at = models.DateTimeField(
@@ -43,33 +43,30 @@ class PostType(AuditedEntity):
     name = models.CharField(
         max_length=100
     )
+    description = models.CharField(
+        max_length=250
+    )
 
 
 class Post(FullAuditedEntity):
-    DRAFT = 0
-    PENDING = 1
-    PUBLISHED = 2
-    STATUS_CHOICES = (
-        (DRAFT, 'Draft'),
-        (PENDING, 'Pending'),
-        (PUBLISHED, 'Published'),
-    )
-    title = models.CharField(
+    class Status(models.IntegerChoices):
+        DRAFT = 0
+        PENDING = 1
+        PUBLISHED = 2
+    name = models.CharField(
         max_length=250
     )
-    body = models.TextField()
+    description = models.TextField()
     status = models.IntegerField(
-        choices=STATUS_CHOICES,
-        default=0
+        choices=Status.choices,
+        default=Status.DRAFT
     )
-    featured_image = models.FilePathField("/featured_images")
+    featured_image = models.ImageField(upload_to="photos/%Y/%m/%d")
     categories = models.ManyToManyField(
-        Category,
-        related_name='post_category'
+        Category
     )
     type = models.OneToOneField(
         PostType,
-        related_name='post_type',
         on_delete=models.CASCADE
     )
 

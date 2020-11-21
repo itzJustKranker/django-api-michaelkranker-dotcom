@@ -54,3 +54,5 @@ docs/_build/
 .vscode/
 
 .env
+
+/static/uploads/
