@@ -38,6 +38,9 @@ class Category(AuditedEntity):
         max_length=250
     )
 
+    def __str__(self):
+        return self.name
+
 
 class PostType(AuditedEntity):
     name = models.CharField(
@@ -46,6 +49,9 @@ class PostType(AuditedEntity):
     description = models.CharField(
         max_length=250
     )
+
+    def __str__(self):
+        return self.name
 
 
 class Post(FullAuditedEntity):
@@ -69,4 +75,7 @@ class Post(FullAuditedEntity):
         PostType,
         on_delete=models.CASCADE
     )
+
+    def __str__(self):
+        return self.name
 
