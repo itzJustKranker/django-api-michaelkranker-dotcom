@@ -8,6 +8,8 @@ django = "*"
 mysqlclient = "*"
 python-decouple = "*"
 pillow = "*"
+djangorestframework = "*"
+django-filter = "*"
 
 [dev-packages]
 
