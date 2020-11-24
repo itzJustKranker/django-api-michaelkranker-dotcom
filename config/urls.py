@@ -1,7 +1,9 @@
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import serializers, viewsets, routers
+from config import settings
 from posts.urls import PostViewSet, PostTypeViewSet, CategoryViewSet
 
 
@@ -32,3 +34,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
+
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
