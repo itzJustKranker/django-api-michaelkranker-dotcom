@@ -3,12 +3,12 @@ from posts.models import Post, Category, PostType
 from rest_framework import serializers, viewsets, filters
 
 
-default_search_fields = ['name', 'description']
-default_ordering_fields = ['name', 'created_at', 'updated_at']
+class DefaultHyperLinkSerializers(serializers.HyperlinkedModelSerializer):
+    id = serializers.ReadOnlyField()
 
 
 # Serializers define the API representation.
-class PostSerializer(serializers.HyperlinkedModelSerializer):
+class PostSerializer(DefaultHyperLinkSerializers):
     categories = serializers.StringRelatedField(many=True, read_only=True)
     type = serializers.StringRelatedField(many=False, read_only=True)
 
@@ -17,16 +17,20 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class PostTypeSerializer(serializers.HyperlinkedModelSerializer):
+class PostTypeSerializer(DefaultHyperLinkSerializers):
     class Meta:
         model = PostType
         fields = '__all__'
 
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(DefaultHyperLinkSerializers):
     class Meta:
         model = Category
         fields = '__all__'
+
+
+default_search_fields = ['name', 'description']
+default_ordering_fields = ['name', 'created_at', 'updated_at']
 
 
 # ViewSets define the view behavior.
