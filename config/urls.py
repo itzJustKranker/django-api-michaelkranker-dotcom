@@ -4,11 +4,11 @@ from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import serializers, viewsets, routers
 from config import settings
+from contact.urls import ContactViewSet, RFPViewSet
 from posts.urls import PostViewSet, PostTypeViewSet, CategoryViewSet
 
 
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     groups = serializers.StringRelatedField(many=True, read_only=True)
     user_permissions = serializers.StringRelatedField(many=True, read_only=True)
 
@@ -29,6 +29,8 @@ router.register(r'users', UserViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'post-types', PostTypeViewSet)
 router.register(r'categories', CategoryViewSet)
+router.register(r'contacts', ContactViewSet)
+router.register(r'rfps', RFPViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

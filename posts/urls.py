@@ -1,6 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from posts.models import Post, Category, PostType
-from rest_framework import serializers, viewsets, filters
+from rest_framework import viewsets, filters, serializers
 
 
 class DefaultSerializers(serializers.ModelSerializer):
@@ -32,7 +32,6 @@ default_search_fields = ['name', 'description']
 default_ordering_fields = ['name', 'created_at', 'updated_at']
 
 
-# ViewSets define the view behavior.
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
