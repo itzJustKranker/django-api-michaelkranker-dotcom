@@ -3,29 +3,28 @@ from posts.models import Post, Category, PostType
 from rest_framework import serializers, viewsets, filters
 
 
-class DefaultHyperLinkSerializers(serializers.HyperlinkedModelSerializer):
+class DefaultSerializers(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
 
 
-# Serializers define the API representation.
-class PostSerializer(DefaultHyperLinkSerializers):
-    categories = serializers.StringRelatedField(many=True, read_only=True)
-    type = serializers.StringRelatedField(many=False, read_only=True)
-
-    class Meta:
-        model = Post
-        fields = '__all__'
-
-
-class PostTypeSerializer(DefaultHyperLinkSerializers):
+class PostTypeSerializer(DefaultSerializers):
     class Meta:
         model = PostType
         fields = '__all__'
 
 
-class CategorySerializer(DefaultHyperLinkSerializers):
+class CategorySerializer(DefaultSerializers):
     class Meta:
         model = Category
+        fields = '__all__'
+
+
+class PostSerializer(DefaultSerializers):
+    categories = CategorySerializer(many=True)
+    type = PostTypeSerializer(many=False)
+
+    class Meta:
+        model = Post
         fields = '__all__'
 
 
@@ -38,7 +37,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['type', 'status', 'categories']
+    filterset_fields = ['status', 'type__name', 'categories__name']
     ordering_fields = default_ordering_fields
     search_fields = default_search_fields
 
