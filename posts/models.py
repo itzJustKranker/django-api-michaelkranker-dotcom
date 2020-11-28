@@ -71,7 +71,7 @@ class Post(FullAuditedEntity):
     categories = models.ManyToManyField(
         Category
     )
-    type = models.OneToOneField(
+    type = models.ForeignKey(
         PostType,
         on_delete=models.CASCADE
     )
