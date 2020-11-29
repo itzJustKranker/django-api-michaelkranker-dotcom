@@ -1,4 +1,4 @@
-from rest_framework import filters, viewsets, serializers
+from rest_framework import serializers, viewsets
 from contact.models import Contact, RequestForProposal
 
 
@@ -19,15 +19,19 @@ class RFPSerializer(DefaultSerializers):
 
 
 class ContactViewSet(viewsets.ModelViewSet):
+    permission_classes = []
+    authentication_classes = []
+
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ('name', 'email', 'message')
+    http_method_names = ['post']
 
 
 class RFPViewSet(viewsets.ModelViewSet):
+    permission_classes = []
+    authentication_classes = []
+
     queryset = RequestForProposal.objects.all()
     serializer_class = RFPSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ('name', 'email')
+    http_method_names = ['post']
 
