@@ -13,14 +13,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 CORS_ORIGIN_ALLOW_ALL = False
-
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
+    config('CLIENT_URI')
 )
 
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+ALLOWED_HOSTS = [
+    'http://localhost:8000',
+    config('API_URI')
+]
 
 # Application definition
 
