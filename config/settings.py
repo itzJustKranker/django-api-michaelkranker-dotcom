@@ -12,21 +12,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080',
-    config('CLIENT_URI')
-)
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CORS_ORIGIN_WHITELIST = [
+    'https://michaelkranker.com',
+    'http://localhost:8080'
+]
 
 ALLOWED_HOSTS = [
-    'http://localhost:8000',
-    config('API_URI')
+    'api.michaelkranker.com',
+    'localhost:8000'
 ]
 
 # Application definition
