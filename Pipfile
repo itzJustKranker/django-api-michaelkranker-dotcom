@@ -8,6 +8,9 @@ django = "*"
 mysqlclient = "*"
 python-decouple = "*"
 pillow = "*"
+djangorestframework = "*"
+django-filter = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
