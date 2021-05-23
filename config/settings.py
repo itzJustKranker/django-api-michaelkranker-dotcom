@@ -25,7 +25,8 @@ CORS_ORIGIN_WHITELIST = [
 
 ALLOWED_HOSTS = [
     'api.michaelkranker.com',
-    'localhost'
+    'localhost',
+    '127.0.0.1'
 ]
 
 # Application definition
@@ -99,11 +100,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASS'),
-        'HOST': config('DB_HOST')
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3'
     }
 }
 
